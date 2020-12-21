@@ -1,2 +1,3 @@
 # squares2
-namaak
+I saw some sh*t on twitter, and got insprired to make the same.
+So not original, yust copy of someone else. Dunno who...

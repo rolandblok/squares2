@@ -43,17 +43,17 @@ class Squares2 {
       this.gui_speeds.open();
 
 
+
       // THREE / GL
       this.three_scene = new THREE.Scene();
 
       this.fov = 55
       this.THREEcamera = new THREE.PerspectiveCamera( this.fov, 1.33, 0.01, 2000 );
-      
-      this.THREEcamera.up = new THREE.Vector3(0,   0,   1)
       this.THREEcamera.aspect = window.innerWidth / window.innerHeight;
+      this.THREEcamera.up = new THREE.Vector3(0,   0,   1)
       this.THREEcamera.fov = this.fov
-      this.THREEcamera.position.set(5, 5, 5)
-      this.THREEcamera.lookAt(new THREE.Vector3(0,   0,  0))
+      this.THREEcamera.position.set(1.6, 1.6, 1.2)
+      this.THREEcamera.lookAt(new THREE.Vector3(0.1,   0.1,  0))
       this.THREEcamera.updateProjectionMatrix();
       this.back_color = 0x000000
 
@@ -68,15 +68,17 @@ class Squares2 {
       this.renderer.setSize( window.innerWidth, window.innerHeight);
       this.canvas = document.body.appendChild(this.renderer.domElement);
 
-      this.box1 = new MyBox(this.three_scene, 0.1, 0.5, "#FF0000", 0.1, 0.5, "#00FF00",0.1, 0.5, "#0000FF")
+      this.my_empty_box = new EmptyBox(this.three_scene, null, '', 1, 0,1, 0,1, 0,1)
       
+
+      //background
       // FACE # left
       this.color_1 = "#aaffaa"
       this.square_geom_left = new THREE.Geometry();
       this.square_geom_left.vertices.push(new THREE.Vector3(0, 0, 0), 
-                                    new THREE.Vector3(0, 0, 2),
-                                    new THREE.Vector3(2, 0, 2), 
-                                    new THREE.Vector3(2, 0, 0) );
+                                    new THREE.Vector3(0, 0, 1),
+                                    new THREE.Vector3(1, 0, 1), 
+                                    new THREE.Vector3(1, 0, 0) );
       this.square_geom_left.faces.push( new THREE.Face3(0, 1, 2),
                                     new THREE.Face3(0, 2, 3));
 
@@ -88,9 +90,9 @@ class Squares2 {
       this.color_2 = "#ffaaaa"
       this.square_geom_right = new THREE.Geometry();
       this.square_geom_right.vertices.push(new THREE.Vector3(0, 0, 0), 
-                                    new THREE.Vector3(0, 2, 0),
-                                    new THREE.Vector3(0, 2, 2), 
-                                    new THREE.Vector3(0, 0, 2) );
+                                    new THREE.Vector3(0, 1, 0),
+                                    new THREE.Vector3(0, 1, 1), 
+                                    new THREE.Vector3(0, 0, 1) );
       this.square_geom_right.faces.push( new THREE.Face3(0, 1, 2),
                                     new THREE.Face3(0, 2, 3));
 
@@ -102,9 +104,9 @@ class Squares2 {
       this.color_3 = "#aaaaff"
       this.square_geom_bottom = new THREE.Geometry();
       this.square_geom_bottom.vertices.push(new THREE.Vector3(0, 0, 0), 
-                                    new THREE.Vector3(2, 0, 0),
-                                    new THREE.Vector3(2, 2, 0), 
-                                    new THREE.Vector3(0, 2, 0) );
+                                    new THREE.Vector3(1, 0, 0),
+                                    new THREE.Vector3(1, 1, 0), 
+                                    new THREE.Vector3(0, 1, 0) );
       this.square_geom_bottom.faces.push( new THREE.Face3(0, 1, 2),
                                     new THREE.Face3(0, 2, 3));
 
@@ -124,12 +126,10 @@ class Squares2 {
     this.stats.begin();
 
     //update
-    if(this.last_update_time_ms != null){
+    if(this.last_update_time_ms != null) {
         var d_time_ms = cur_time_ms - this.last_update_time_ms
 
-        this.box1.change_x(0.01, 1.01+Math.sin(0 + cur_time_ms/1000))
-        this.box1.change_y(0.01, 1.01+Math.sin(2 + cur_time_ms/1000))
-        this.box1.change_z(0.01, 1.01+Math.sin(3 + cur_time_ms/1000))
+        this.my_empty_box.update(cur_time_ms, d_time_ms)
         
     }
     this.last_update_time_ms = cur_time_ms;
