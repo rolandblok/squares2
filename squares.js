@@ -1,3 +1,4 @@
+
 function init() {
   squares = new Squares2("sqaures");
   squares.animLoop();
